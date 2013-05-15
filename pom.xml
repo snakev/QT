@@ -119,6 +119,12 @@
             <version>2.7.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>it.unimi.dsi</groupId>
+            <artifactId>fastutil</artifactId>
+            <version>6.5.4</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
