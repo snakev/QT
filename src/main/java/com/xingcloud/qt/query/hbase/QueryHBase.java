@@ -46,7 +46,7 @@ public class QueryHBase implements QueryBase {
         List<Pair<String, Scan>> scans = parseToScans(pID, segmentJson, startUid, endUid, null);
         List<FutureTask<SmartSet>> futures = new ArrayList<FutureTask<SmartSet>>();
         for (Pair<String, Scan> pair : scans) {
-            UidQueryTaskCallable task = new UidQueryTaskCallable(pair.getFirst(), pair.getSecond());
+            UidQueryTaskCallable task = new UidQueryTaskCallable(pID, pair.getFirst(), pair.getSecond());
             FutureTask<SmartSet> futureTask = (FutureTask<SmartSet>) UIQueryPool.addTask(task);
             futures.add(futureTask);
         }
@@ -118,10 +118,10 @@ public class QueryHBase implements QueryBase {
                 if (segmentContainsAttr) {
                     useIndex = true;
                 }
-                UserInfoQueryTaskCallable task = new UserInfoQueryTaskCallable(attrName, scan, useIndex);
+                UserInfoQueryTaskCallable task = new UserInfoQueryTaskCallable(pID, attrName, scan, useIndex);
                 userInfoFuture = (FutureTask<DictCompressMap>)UIQueryPool.addTask(task);
             } else {
-                UidQueryTaskCallable task = new UidQueryTaskCallable(pair.getFirst(), pair.getSecond());
+                UidQueryTaskCallable task = new UidQueryTaskCallable(pID, pair.getFirst(), pair.getSecond());
                 FutureTask<SmartSet> futureTask = (FutureTask<SmartSet>) UIQueryPool.addTask(task);
                 futures.add(futureTask);
             }
