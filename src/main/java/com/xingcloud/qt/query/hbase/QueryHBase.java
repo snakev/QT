@@ -285,7 +285,7 @@ public class QueryHBase implements QueryBase {
             QualifierFilter qfGTE = new QualifierFilter(CompareFilter.CompareOp.GREATER_OR_EQUAL, new BinaryComparator(suid));
             filters.addFilter(qfLT);
             filters.addFilter(qfGTE);
-            scan.setFilter(filters);
+
 
             Object obj = queryObj.get(key);
             if (obj instanceof Integer || obj instanceof Long) {
@@ -390,8 +390,7 @@ public class QueryHBase implements QueryBase {
                         }
 
                     } else if (keySub.equals("$lte")) {
-                        InclusiveStopFilter filter = new InclusiveStopFilter();
-                        filters.addFilter(filter);
+
                         byte[] erk = null;
                         if (val instanceof Integer || val instanceof Long) {
                             if (val instanceof Integer) {
@@ -409,10 +408,14 @@ public class QueryHBase implements QueryBase {
                             }
                         }
                         scan.setStopRow(erk);
+                        InclusiveStopFilter filter = new InclusiveStopFilter(erk);
+                        filters.addFilter(filter);
                     }
 
                 }
             }
+
+            scan.setFilter(filters);
             Pair<String, Scan> pair = new Pair<String, Scan>(key, scan);
             queryScanList.add(pair);
         }
