@@ -70,7 +70,6 @@ public class QueryUtils {
     }
 
     public static byte[] getUIIndexRowKey(String attrName, byte[] attrVal) {
-        LOG.info(attrName + " " + attrMap.size());
         int index = attrMap.get(attrName);
         byte[] rk = combineIndexRowKey(index, attrVal);
         return rk;

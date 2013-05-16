@@ -6,7 +6,7 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>100</times>
+        <times>1</times>
     </index>
     <index>
         <pid>sof-dsk</pid>
@@ -14,7 +14,7 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>100</times>
+        <times>1</times>
     </index>
     <index>
         <pid>sof-dsk</pid>
@@ -22,7 +22,7 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>100</times>
+        <times>1</times>
     </index>
     <index>
         <pid>sof-dsk</pid>
@@ -30,7 +30,7 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>100</times>
+        <times>1</times>
     </index>
     <index>
         <pid>sof-dsk</pid>
@@ -38,7 +38,7 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>100</times>
+        <times>1</times>
     </index>
     <index>
         <pid>sof-dsk</pid>
@@ -46,7 +46,7 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>100</times>
+        <times>1</times>
     </index>
     <index>
         <pid>sof-dsk</pid>
@@ -54,7 +54,7 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>100</times>
+        <times>1</times>
     </index>
     <index>
         <pid>sof-dsk</pid>
@@ -62,7 +62,43 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>100</times>
+        <times>1</times>
+    </index>
+
+    <index>
+        <pid>sof-dsk</pid>
+        <segment>{"register_time":{"$gte":"2013-05-12","$lte":"2013-05-12"}}</segment>
+        <bucket_num>256</bucket_num>
+        <type>hbase</type>
+        <group_by_attr>language</group_by_attr>
+        <times>1</times>
+    </index>
+
+    <index>
+        <pid>sof-dsk</pid>
+        <segment>{"register_time":{"$gte":"2013-05-12","$lte":"2013-05-12"}}</segment>
+        <bucket_num>256</bucket_num>
+        <type>hbase</type>
+        <group_by_attr>nation</group_by_attr>
+        <times>1</times>
+    </index>
+
+    <index>
+        <pid>sof-dsk</pid>
+        <segment>{"nation":"en"}</segment>
+        <bucket_num>256</bucket_num>
+        <type>hbase</type>
+        <group_by_attr>language</group_by_attr>
+        <times>1</times>
+    </index>
+
+    <index>
+        <pid>sof-dsk</pid>
+        <segment>{"nation":"br"}</segment>
+        <bucket_num>256</bucket_num>
+        <type>hbase</type>
+        <group_by_attr>language</group_by_attr>
+        <times>1</times>
     </index>
 
 </Root>

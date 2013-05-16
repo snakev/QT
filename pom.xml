@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.xingcloud.qt</groupId>
     <artifactId>QT</artifactId>
-    <version>4.3</version>
+    <version>0.1</version>
     <packaging>jar</packaging>
 
     <repositories>
