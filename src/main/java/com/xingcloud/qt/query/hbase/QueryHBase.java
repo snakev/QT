@@ -293,12 +293,12 @@ public class QueryHBase implements QueryBase {
                     long dateInMySqlBegin = QueryUtils.getDateValInMySql(date, true);
                     long dateInMySqlEnd = QueryUtils.getDateValInMySql(date, false);
 
-                    byte[] srk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes(dateInMySqlBegin));
-                    byte[] erk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes(dateInMySqlEnd));
+                    byte[] srk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(dateInMySqlBegin));
+                    byte[] erk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(dateInMySqlEnd));
                     scan.setStartRow(srk);
                     scan.setStopRow(erk);
                 } else {
-                    byte[] rk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes(obj.toString()));
+                    byte[] rk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(obj.toString()));
                     scan.setStartRow(rk);
                     scan.setStopRow(rk);
                 }
@@ -313,16 +313,16 @@ public class QueryHBase implements QueryBase {
                         if (val instanceof Integer || val instanceof Long) {
                             byte[] srk = null;
                             if (val instanceof Integer) {
-                                srk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes((Integer)val+1));
+                                srk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes((Integer)val+1));
                             } else {
-                                srk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes((Long)val+1l));
+                                srk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes((Long)val+1l));
                             }
                             scan.setStartRow(srk);
                         } else {
                             if (RedisOperate.getPropInfo(pID, key).getFirst() == PropType.sql_datetime) {
                                 String date = (String)val;
                                 long dateInMySql = QueryUtils.getDateValInMySql(date, true);
-                                byte[] srk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes(dateInMySql));
+                                byte[] srk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(dateInMySql));
                                 scan.setStartRow(srk);
                             }
                             else {
@@ -336,19 +336,19 @@ public class QueryHBase implements QueryBase {
                         if (val instanceof Integer || val instanceof Long) {
                             byte[] srk = null;
                             if (val instanceof Integer) {
-                                srk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes((Integer)val));
+                                srk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes((Integer)val));
                             } else {
-                                srk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes((Long)val));
+                                srk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes((Long)val));
                             }
                             scan.setStartRow(srk);
                         } else {
                             if (RedisOperate.getPropInfo(pID, key).getFirst() == PropType.sql_datetime) {
                                 String date = (String)val;
                                 long dateInMySql = QueryUtils.getDateValInMySql(date, true);
-                                byte[] srk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes(dateInMySql));
+                                byte[] srk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(dateInMySql));
                                 scan.setStartRow(srk);
                             } else {
-                                byte[] srk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes(val.toString()));
+                                byte[] srk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(val.toString()));
                                 scan.setStartRow(srk);
                             }
                         }
@@ -357,19 +357,19 @@ public class QueryHBase implements QueryBase {
                         if (val instanceof Integer || val instanceof Long) {
                             byte[] erk = null;
                             if (val instanceof Integer) {
-                                erk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes((Integer)val+1));
+                                erk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes((Integer)val+1));
                             } else {
-                                erk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes((Long)val+1l));
+                                erk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes((Long)val+1l));
                             }
                             scan.setStopRow(erk);
                         } else {
                             if (RedisOperate.getPropInfo(pID, key).getFirst() == PropType.sql_datetime) {
                                 String date = (String)val;
                                 long dateInMySql = QueryUtils.getDateValInMySql(date, false);
-                                byte[] erk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes(dateInMySql));
+                                byte[] erk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(dateInMySql));
                                 scan.setStopRow(erk);
                             } else {
-                                byte[] erk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes(val.toString()));
+                                byte[] erk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(val.toString()));
                                 scan.setStopRow(erk);
                             }
                         }
@@ -380,17 +380,17 @@ public class QueryHBase implements QueryBase {
                         byte[] erk = null;
                         if (val instanceof Integer || val instanceof Long) {
                             if (val instanceof Integer) {
-                                erk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes((Integer)val));
+                                erk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes((Integer)val));
                             } else {
-                                erk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes((Long)val));
+                                erk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes((Long)val));
                             }
                         } else {
                             if (RedisOperate.getPropInfo(pID, key).getFirst() == PropType.sql_datetime) {
                                 String date = (String)val;
                                 long dateInMySql = QueryUtils.getDateValInMySql(date, false);
-                                erk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes(dateInMySql));
+                                erk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(dateInMySql));
                             } else {
-                                erk = QueryUtils.getUIIndexRowKey(attrName, Bytes.toBytes(val.toString()));
+                                erk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(val.toString()));
                             }
                         }
                         scan.setStopRow(erk);
@@ -398,7 +398,7 @@ public class QueryHBase implements QueryBase {
 
                 }
             }
-            Pair<String, Scan> pair = new Pair<String, Scan>(attrName, scan);
+            Pair<String, Scan> pair = new Pair<String, Scan>(key, scan);
             queryScanList.add(pair);
         }
         return queryScanList;
