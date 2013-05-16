@@ -126,11 +126,7 @@ public class QueryHBase implements QueryBase {
             Scan scan = pair.getSecond();
 
             if (attrName.equals(groupByAttr)) {
-                boolean useIndex = false;
-                if (segmentContainsAttr) {
-                    useIndex = true;
-                }
-                UserInfoQueryTaskCallable task = new UserInfoQueryTaskCallable(pID, attrName, scan, useIndex);
+                UserInfoQueryTaskCallable task = new UserInfoQueryTaskCallable(pID, attrName, scan, true);
                 userInfoFuture = (FutureTask<DictCompressMap>)UIQueryPool.addTask(task);
             } else {
                 UidQueryTaskCallable task = new UidQueryTaskCallable(pID, pair.getFirst(), pair.getSecond());
@@ -424,8 +420,11 @@ public class QueryHBase implements QueryBase {
 
         if (!segmentJson.contains(attrName)) {
             Scan scan = new Scan();
-            scan.setStartRow(suid);
-            scan.setStopRow(euid);
+            FilterList filters = new FilterList();
+            QualifierFilter qfLT = new QualifierFilter(CompareFilter.CompareOp.LESS, new BinaryComparator(euid));
+            QualifierFilter qfGTE = new QualifierFilter(CompareFilter.CompareOp.GREATER_OR_EQUAL, new BinaryComparator(suid));
+            filters.addFilter(qfLT);
+            filters.addFilter(qfGTE);
             Pair<String, Scan> pair = new Pair<String, Scan>(attrName, scan);
             queryScanList.add(pair);
         }
