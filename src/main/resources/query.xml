@@ -6,7 +6,7 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>10</times>
+        <times>100</times>
     </index>
     <index>
         <pid>sof-dsk</pid>
@@ -14,7 +14,7 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>10</times>
+        <times>100</times>
     </index>
     <index>
         <pid>sof-dsk</pid>
@@ -22,7 +22,7 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>10</times>
+        <times>100</times>
     </index>
     <index>
         <pid>sof-dsk</pid>
@@ -30,7 +30,7 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>10</times>
+        <times>100</times>
     </index>
     <index>
         <pid>sof-dsk</pid>
@@ -38,7 +38,7 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>10</times>
+        <times>100</times>
     </index>
     <index>
         <pid>sof-dsk</pid>
@@ -46,7 +46,7 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>10</times>
+        <times>100</times>
     </index>
     <index>
         <pid>sof-dsk</pid>
@@ -54,7 +54,7 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>10</times>
+        <times>100</times>
     </index>
     <index>
         <pid>sof-dsk</pid>
@@ -62,7 +62,7 @@
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
-        <times>10</times>
+        <times>100</times>
     </index>
 
 </Root>
