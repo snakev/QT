@@ -302,16 +302,14 @@ public class QueryHBase implements QueryBase {
                 if (RedisOperate.getPropInfo(pID, key).getFirst() == PropType.sql_datetime) {
             		 /* Date type */
                     String date = (String)obj;
+                    String nextDay = DateManager.getInstance().calDay(date, 1);
                     long dateInMySqlBegin = QueryUtils.getDateValInMySql(date, true);
-                    long dateInMySqlEnd = QueryUtils.getDateValInMySql(date, false);
+                    long dateInMySqlEnd = QueryUtils.getDateValInMySql(nextDay, true);
 
                     byte[] srk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(dateInMySqlBegin));
                     byte[] erk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(dateInMySqlEnd));
                     scan.setStartRow(srk);
                     scan.setStopRow(erk);
-
-                    InclusiveStopFilter filter = new InclusiveStopFilter();
-                    filters.addFilter(filter);
 
                 } else {
                     byte[] rk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(obj.toString()));
