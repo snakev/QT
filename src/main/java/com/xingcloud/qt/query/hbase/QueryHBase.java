@@ -12,6 +12,7 @@ import com.xingcloud.qt.query.hbase.task.UserInfoQueryTaskCallable;
 import com.xingcloud.qt.query.pool.UIQueryPool;
 import com.xingcloud.qt.redis.RedisOperate;
 import com.xingcloud.qt.utils.Constants;
+import com.xingcloud.qt.utils.DateManager;
 import com.xingcloud.qt.utils.QueryUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,6 +21,7 @@ import org.apache.hadoop.hbase.filter.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.util.Pair;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -43,7 +45,12 @@ public class QueryHBase implements QueryBase {
     public SmartSet getSegmentUidSet(String pID, String segmentJson, long startUid, long endUid) {
         long startTime = System.nanoTime();
 
-        List<Pair<String, Scan>> scans = parseToScans(pID, segmentJson, startUid, endUid, null);
+        List<Pair<String, Scan>> scans = null;
+        try {
+            scans = parseToScans(pID, segmentJson, startUid, endUid, null);
+        } catch (ParseException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
         List<FutureTask<SmartSet>> futures = new ArrayList<FutureTask<SmartSet>>();
         for (Pair<String, Scan> pair : scans) {
             UidQueryTaskCallable task = new UidQueryTaskCallable(pID, pair.getFirst(), pair.getSecond());
@@ -101,7 +108,12 @@ public class QueryHBase implements QueryBase {
     public DictCompressMap getUserInfo(String pID, String segmentJson, String groupByAttr, long startUid, long endUid) {
         long startTime = System.nanoTime();
 
-        List<Pair<String, Scan>> scans = parseToScans(pID, segmentJson, startUid, endUid, groupByAttr);
+        List<Pair<String, Scan>> scans = null;
+        try {
+            scans = parseToScans(pID, segmentJson, startUid, endUid, groupByAttr);
+        } catch (ParseException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
 
         List<FutureTask<SmartSet>> futures = new ArrayList<FutureTask<SmartSet>>(scans.size());
 
@@ -247,7 +259,7 @@ public class QueryHBase implements QueryBase {
 
     }
 
-    public List<Pair<String, Scan>> parseToScans(String pID, String segmentJson, long startUid, long endUid, String attrName) {
+    public List<Pair<String, Scan>> parseToScans(String pID, String segmentJson, long startUid, long endUid, String attrName) throws ParseException {
         List<Pair<String, Scan>> queryScanList = new ArrayList<Pair<String, Scan>>();
 
         byte[] suid = QueryUtils.getUIRowKey(startUid);
@@ -297,6 +309,10 @@ public class QueryHBase implements QueryBase {
                     byte[] erk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(dateInMySqlEnd));
                     scan.setStartRow(srk);
                     scan.setStopRow(erk);
+
+                    InclusiveStopFilter filter = new InclusiveStopFilter();
+                    filters.addFilter(filter);
+
                 } else {
                     byte[] rk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(obj.toString()));
                     scan.setStartRow(rk);
@@ -321,7 +337,8 @@ public class QueryHBase implements QueryBase {
                         } else {
                             if (RedisOperate.getPropInfo(pID, key).getFirst() == PropType.sql_datetime) {
                                 String date = (String)val;
-                                long dateInMySql = QueryUtils.getDateValInMySql(date, true);
+                                String newDate = DateManager.getInstance().calDay(date, 1);
+                                long dateInMySql = QueryUtils.getDateValInMySql(newDate, true);
                                 byte[] srk = QueryUtils.getUIIndexRowKey(key, Bytes.toBytes(dateInMySql));
                                 scan.setStartRow(srk);
                             }
