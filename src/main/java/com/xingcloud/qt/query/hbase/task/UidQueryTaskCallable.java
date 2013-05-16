@@ -27,16 +27,20 @@ public class UidQueryTaskCallable implements Callable<SmartSet> {
     private String tableName;
     private Scan scan;
     private String pID;
+    private String attrName;
 
 
     public UidQueryTaskCallable(String pID, String attrName, Scan scan) {
         this.pID = pID;
+        this.attrName = attrName;
         this.tableName = QueryUtils.getUIIndexTableName(pID, attrName);
         this.scan = scan;
     }
 
     @Override
     public SmartSet call() throws Exception {
+        long st = System.nanoTime();
+
         SmartSet ss = new SmartSet();
 
         HTablePool.PooledHTable hTable = HBaseResourceManager.getInstance().getTable(tableName);
@@ -53,6 +57,8 @@ public class UidQueryTaskCallable implements Callable<SmartSet> {
         } finally {
             HBaseResourceManager.getInstance().putTable(hTable);
         }
+
+        LOG.info("Query task finish. " + attrName + " size: " + ss.size() + "\tTaken: " + (System.nanoTime()-st)/1.0e9 + " sec");
 
         return ss;
     }

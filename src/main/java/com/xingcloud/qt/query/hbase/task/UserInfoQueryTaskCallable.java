@@ -45,6 +45,8 @@ public class UserInfoQueryTaskCallable implements Callable<DictCompressMap> {
 
     @Override
     public DictCompressMap call() throws Exception {
+        long st = System.nanoTime();
+
         boolean isLong = false;
         if (attrName.endsWith("_time")) {
             isLong = true;
@@ -74,6 +76,7 @@ public class UserInfoQueryTaskCallable implements Callable<DictCompressMap> {
             HBaseResourceManager.getInstance().putTable(hTable);
         }
 
+        LOG.info("Query task finish. " + attrName + " size: " + dm.size() + "\tTaken: " + (System.nanoTime()-st)/1.0e9 + "sec");
 
         return dm;
     }
