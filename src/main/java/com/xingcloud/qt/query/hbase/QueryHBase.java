@@ -141,6 +141,8 @@ public class QueryHBase implements QueryBase {
 
         DictCompressMap finalUserInfo = new DictCompressMap();
 
+
+
         if (!Constants.TOTAL_USER_IDENTIFIER.equals(segmentJson) && !(scans.size()==1 && groupByAttr != null)) {
             SmartSet ss = null;
             try {
@@ -419,6 +421,15 @@ public class QueryHBase implements QueryBase {
             Pair<String, Scan> pair = new Pair<String, Scan>(key, scan);
             queryScanList.add(pair);
         }
+
+        if (!segmentJson.contains(attrName)) {
+            Scan scan = new Scan();
+            scan.setStartRow(suid);
+            scan.setStopRow(euid);
+            Pair<String, Scan> pair = new Pair<String, Scan>(attrName, scan);
+            queryScanList.add(pair);
+        }
+
         return queryScanList;
     }
 
