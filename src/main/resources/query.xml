@@ -2,7 +2,7 @@
 <Root>
     <index>
         <pid>sof-dsk</pid>
-        <segment>{"register_time":{"$gte":"2013-05-12","$lte":"2013-05-12"}</segment>
+        <segment>{"register_time":{"$gte":"2013-05-12","$lte":"2013-05-12"}}</segment>
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
@@ -18,7 +18,7 @@
     </index>
     <index>
         <pid>sof-dsk</pid>
-        <segment>{"last_login_time":{"$gte":"2013-05-12","$lte":"2013-05-12"}</segment>
+        <segment>{"last_login_time":{"$gte":"2013-05-12","$lte":"2013-05-12"}}</segment>
         <bucket_num>256</bucket_num>
         <type>hbase</type>
         <group_by_attr>NA</group_by_attr>
