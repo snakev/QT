@@ -70,13 +70,13 @@ public class QueryUtils {
     }
 
     public static byte[] getUIIndexRowKey(String attrName, byte[] attrVal) {
+        LOG.info(attrName + " " + attrMap.size());
         int index = attrMap.get(attrName);
         byte[] rk = combineIndexRowKey(index, attrVal);
         return rk;
     }
 
     public static String getUIIndexTableName(String pID, String attrName) {
-        int index = attrMap.get(attrName);
         return "property_" + pID + "_index";
     }
 
