@@ -28,6 +28,7 @@ public class Main {
     private static Log LOG = LogFactory.getLog(Main.class);
 
     public static void main(String[] args) {
+        QueryUtils.initAttrMap();
 
         Dom dom = ConfigReader.getDom("query.xml");
         List<Dom> indexes = dom.elements("index");
