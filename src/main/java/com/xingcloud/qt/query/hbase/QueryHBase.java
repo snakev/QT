@@ -7,6 +7,7 @@ import com.xingcloud.qt.model.BitSet;
 import com.xingcloud.qt.model.DictCompressMap;
 import com.xingcloud.qt.model.SmartSet;
 import com.xingcloud.qt.query.QueryBase;
+import com.xingcloud.qt.query.hbase.filter.QualifierUidFilter;
 import com.xingcloud.qt.query.hbase.task.UidQueryTaskCallable;
 import com.xingcloud.qt.query.hbase.task.UserInfoQueryTaskCallable;
 import com.xingcloud.qt.query.pool.UIQueryPool;
@@ -279,10 +280,12 @@ public class QueryHBase implements QueryBase {
 
             Scan scan = new Scan();
             FilterList filters = new FilterList();
-            QualifierFilter qfLT = new QualifierFilter(CompareFilter.CompareOp.LESS, new BinaryComparator(euid));
-            QualifierFilter qfGTE = new QualifierFilter(CompareFilter.CompareOp.GREATER_OR_EQUAL, new BinaryComparator(suid));
-            filters.addFilter(qfLT);
-            filters.addFilter(qfGTE);
+            //QualifierFilter qfLT = new QualifierFilter(CompareFilter.CompareOp.LESS, new BinaryComparator(euid));
+            //QualifierFilter qfGTE = new QualifierFilter(CompareFilter.CompareOp.GREATER_OR_EQUAL, new BinaryComparator(suid));
+            QualifierUidFilter qualifierUidFilter = new QualifierUidFilter(startUid, endUid);
+            filters.addFilter(qualifierUidFilter);
+            //filters.addFilter(qfLT);
+            //filters.addFilter(qfGTE);
 
 
             Object obj = queryObj.get(key);
