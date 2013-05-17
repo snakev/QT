@@ -24,8 +24,11 @@ public class QualifierUidFilter extends FilterBase {
 
   private byte[] startUidOfBytes5;
   private byte[] endUidOfBytes5;
-
-
+  
+  public QualifierUidFilter(){
+    super();
+  }
+  
   public QualifierUidFilter(long startUid, long endUid) {
     byte[] sub = Bytes.toBytes(startUid);
     byte[] eub = Bytes.toBytes(endUid);
