@@ -38,6 +38,7 @@ public class QualifierUidFilter extends FilterBase {
   public Filter.ReturnCode filterKeyValue(KeyValue kv) {
     byte[] uid = kv.getQualifier();
     if(Bytes.compareTo(uid, endUidOfBytes5) > 0){
+      LOG.info(kv.getRow()+"\t"+kv.getQualifier());
       return Filter.ReturnCode.NEXT_ROW;
     }else if (Bytes.compareTo(uid, startUidOfBytes5) < 0 ){
       return ReturnCode.SEEK_NEXT_USING_HINT;
