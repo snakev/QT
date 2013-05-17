@@ -40,6 +40,7 @@ public class QualifierUidFilter extends FilterBase {
   @Override
   public Filter.ReturnCode filterKeyValue(KeyValue kv) {
     byte[] uid = kv.getQualifier();
+    LOG.info("wo"+"\t"+uid);
     if(Bytes.compareTo(uid, endUidOfBytes5) > 0){
       LOG.info(kv.getRow()+"\t"+kv.getQualifier());
       return Filter.ReturnCode.NEXT_ROW;
