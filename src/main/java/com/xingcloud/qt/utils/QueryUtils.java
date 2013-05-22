@@ -74,7 +74,16 @@ public class QueryUtils {
         byte[] rk = combineIndexRowKey(index, attrVal);
         return rk;
     }
-
+    
+    public static byte[] getUIIndexRowKey(String attrName){
+      int index = attrMap.get(attrName);
+      return Bytes.toBytes(index);
+    }
+    
+    public static byte[] getUINextIndexRowKey(String attrName){
+      int index = attrMap.get(attrName)+1;
+      return Bytes.toBytes(index);
+    }
     public static String getUIIndexTableName(String pID, String attrName) {
         return "property_" + pID + "_index";
     }

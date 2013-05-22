@@ -100,5 +100,14 @@
         <group_by_attr>language</group_by_attr>
         <times>1</times>
     </index>
+    
+    <index>
+        <pid>sof-dsk</pid>
+        <segment>{"nation":"br"}</segment>
+        <bucket_num>1</bucket_num>
+        <type>hbase</type>
+        <group_by_attr>language</group_by_attr>
+        <times>1</times>
+    </index>
 
 </Root>
